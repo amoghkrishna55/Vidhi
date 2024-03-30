@@ -17,21 +17,17 @@ const Hero = () => {
         className={`text-[2.8rem] sm:text-[4rem] lg:text-[4rem] font-bold w-[75%] mb-10  text-center leading-sm lg:leading-none tracking-tight flex-col ${rounded.className} uppercase`}
       >
         <h1>
-          Create new{" "}
+          Empowering{" "}
           <span className="custom-h1-border-white dark:text-background">
-            experiences
+            Justice:
           </span>{" "}
-          in learning with{" "}
+          your personal{" "}
           <span className="text-brand/yellow drop-shadow-[4px_4px_var(--tw-shadow-color)] shadow-yellow-600 custom-h1-border-black">
-            collaboration{" "}
+            Crime-solving{" "}
           </span>
-          and{" "}
+          {/* and{" "} */}
           <span className="text-brand/blue custom-dotted-border px-6 py-2 inline-block mt-4 rotate-3 w-[5rem]">
-            building 
-          </span>
-          <span className="p-4">
-          With the <br/>
-           help of ai
+            Companion 
           </span>
         </h1>
       </div>
