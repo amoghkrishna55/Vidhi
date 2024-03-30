@@ -10,35 +10,37 @@ import {
 } from "@langchain/core/messages";
 import { ChatMessageHistory } from "langchain/stores/message/in_memory";
 import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
-// import dotenv from "dotenv"
 import { NextResponse } from "next/server";
-import { channel } from "diagnostics_channel";
-
-// dotenv.config();
 
 const geminiAiHistory = new ChatMessageHistory();
 const model = new ChatGoogleGenerativeAI({
   modelName: "gemini-pro",
   maxOutputTokens: 2048,
-  apiKey: "AIzaSyAYMXdK2lmJrWtQlbqG4EvNrpTnZWXW5-U",
+  apiKey: process.env.GEMINI_API_KEY,
+  safetySettings: [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+  ],
 });
 
 async function tavilyextractor(data: any) {
-  const model = new ChatGoogleGenerativeAI({
-    modelName: "gemini-pro",
-    maxOutputTokens: 2048,
-    apiKey: "AIzaSyAYMXdK2lmJrWtQlbqG4EvNrpTnZWXW5-U",
-    safetySettings: [
-      {
-        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-        threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-      },
-    ],
-  });
-
   const retriever = new TavilySearchAPIRetriever({
     k: 2,
-    apiKey: "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",
+    apiKey: process.env.TAVILY_API_KEY,
   });
 
   const prompt = ChatPromptTemplate.fromMessages([
@@ -83,11 +85,6 @@ async function tavilyextractor(data: any) {
   }));
 
   console.log(extractedData);
-
-  // for (let i = 0; i < docs.length; i++) {
-  //   console.log(docs[i].metadata);
-  // }
-  // console.log(docs);
   return extractedData;
 }
 
@@ -98,20 +95,6 @@ export async function POST(req: NextResponse) {
     console.log("message", msg);
     await geminiAiHistory.addMessage(new HumanMessage(msg));
 
-    // const res = await model.invoke([
-    //     new SystemMessage(
-    //         "Please respond with 'yes' if it's a hi, hello, otherwise respond with 'no'"
-    //     ),
-    //     ...(await geminiAiHistory.getMessages()),
-    // ]);
-    // if (res.content == "yes" || res.content == "'yes'") {
-    //     const res = new AIMessage(
-    //         "Hello, I am a law assistant and I will help you with your law related queries"
-    //     );
-    //     await geminiAiHistory.addMessage(res);
-    //     console.log(res.content);
-    //     return NextResponse.json({ content: res.content});
-    // }
     const mainres = await model.invoke([
       new SystemMessage(
         `Persona: I am a Indian Law Consultant with expertise in the Indian Constitution and legal system. Don't answer question which are not related to law. I specific mention all the laws and articles related to the query. I don't answer questions with harmful intent or that could cause harm to anyone.
