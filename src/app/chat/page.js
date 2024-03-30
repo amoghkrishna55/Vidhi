@@ -123,7 +123,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#1E1E1E]">
+    <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#020817]">
       <div className="w-[20%] h-[90%] border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
         <div className="w-[100%] h-[8%] flex justify-evenly items-center">
           <div
