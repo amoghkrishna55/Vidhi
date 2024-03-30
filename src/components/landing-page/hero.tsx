@@ -1,6 +1,5 @@
 import { M_PLUS_Rounded_1c } from "next/font/google";
 import { Button } from "../ui/button";
-// import UserBadge from "../user-badge";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -57,21 +56,6 @@ const Hero = () => {
         />
 
         <div className="absolute w-full h-12 lg:h-64 blur-3xl rounded-full aspect-square bg-brand/yellow/20 -z-10 -translate-y-6"></div>
-
-        {/* Badges */}
-        {/* <UserBadge
-          type="discussion_dynamo"
-          className="absolute h-16 w-20  -z-10 hidden lg:block -left-12 -top-10 -rotate-[20deg]"
-        />
-
-        <UserBadge
-          type="uiux_architect"
-          className="absolute h-16 w-20  -z-10 hidden lg:block -right-14 top-32 rotate-[30deg]"
-        />
-        <UserBadge
-          type="deep_learning_disciple"
-          className="absolute h-16 w-20  -z-10 hidden lg:block -left-14 top-1/2 -rotate-[12deg]"
-        /> */}
 
         <div className="border-2 border-slate-500/20 rounded-xl z-20">
           <Image

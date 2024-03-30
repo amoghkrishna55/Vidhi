@@ -2,18 +2,14 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-// import AppStateProvider from "@/components/providers/state-provider";
 import { Toaster } from "@/components/ui/toaster";
-// import { SupabaseUserProvider } from "@/components/providers/supabase-user-provider";
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
 
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "VIDHI",
   description:
-    "AI Powered Collaborative Learning and Project Development Platform for Developers and Professionals.",
+    "Empowering Justice: Your Personal Crime-solving Companion - Connect with our Chatbot for Instant Answers to All Your Crime-related Queries!",
 };
 
 export default function RootLayout({
@@ -29,12 +25,8 @@ export default function RootLayout({
           defaultTheme="dark"
           storageKey="apex-theme"
         >
-          {/* <AppStateProvider> */}
-            {/* <SupabaseUserProvider> */}
               {children}
               <Toaster />
-            {/* </SupabaseUserProvider> */}
-          {/* </AppStateProvider> */}
         </ThemeProvider>
       </body>
     </html>
