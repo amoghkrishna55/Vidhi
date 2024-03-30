@@ -54,6 +54,7 @@ const Chat = () => {
   }, [response]);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setInput("");
     if (loading) return;
     console.log("Input : ", input);
     setResponse((prevResponse) => [
@@ -71,7 +72,6 @@ const Chat = () => {
       response.data.reference && response.data.reference.length > 0
         ? setReference(response.data.reference)
         : setReference(null);
-      setInput("");
     } catch (error) {
       console.log(error);
     } finally {
@@ -215,9 +215,9 @@ const Chat = () => {
         <Image className="w-[100%] h-[100%]" src={logo} alt="logo" />
       </div>
       <div className="w-[80%] fixed bottom-0 right-0 h-[10%] flex justify-center items-center">
-        <div className="w-[70%] h-[2.8rem] rounded-3xl flex justify-center items-center px-2 border border-slate-500 bg-[#323232]">
+        <div className="w-[60%] h-[60%] rounded-3xl flex justify-center items-center px-2 border border-slate-500 bg-[#323232] mb-10">
           <input
-            className="rounded-3xl h-[100%] w-[96%] px-2 border-none outline-none bg-[#323232] text-[#F8F8F8]"
+            className="rounded-3xl h-[100%] w-[100%] px-2 border-none outline-none bg-[#323232] text-[#F8F8F8]"
             type="text"
             placeholder="Type your legal question..."
             value={input}

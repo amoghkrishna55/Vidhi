@@ -47,25 +47,18 @@ const PreResponse = ({ handleClickLoad }: { handleClickLoad: any }) => {
   }, []);
 
   return (
-    <div className="w-[100%] h-[100%] flex justify-center items-between flex-col">
-      <div className="w-[100%] flex justify-center items-center flex-col">
-        <Image src={logo} alt="logo" width={200} height={200} />
-
+    <div className="w-[100%] h-[100vh] overflow-hidden flex justify-center items-between flex-col">
+      <div className="w-[100%] flex justify-start items-center flex-col">
         <br />
-        {/* <p className="font-bold text-3xl text-slate-500">Welcome 👋,</p> */}
         <TypeAnimation
-          className="font-bold text-3xl text-slate-500"
+          className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-gradient-start to-gradient-end"
           cursor={false}
-          sequence={["Welcome 👋,"]}
+          sequence={["Hello, User"]}
           repeat={1}
-          startDelay={1000}
-          typeSpeed={100}
-          deleteSpeed={100}
-          delaySpeed={1000}
+          speed={40}
         />
-
-        <p className="font-bold text-2xl text-slate-600">
-          How can I help you with your legal questions today?
+        <p className="font-bold text-6xl text-slate-600 mt-3">
+          How can I help you today?
         </p>
       </div>
 
