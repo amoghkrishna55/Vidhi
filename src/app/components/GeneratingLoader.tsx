@@ -1,16 +1,18 @@
-import { DNA } from "react-loader-spinner"
+import { LineWave } from "react-loader-spinner";
 
 const GeneratingLoader = () => {
-	return (
-		<div><DNA
-			visible={true}
-			height="80"
-			width="80"
-			ariaLabel="dna-loading"
-			wrapperStyle={{}}
-			wrapperClass="dna-wrapper"
-		/></div>
-	)
-}
+  return (
+    <div>
+      <LineWave
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="line-wave-loading"
+        wrapperStyle={{}}
+        color="#FAD85D"
+      />
+    </div>
+  );
+};
 
-export default GeneratingLoader
+export default GeneratingLoader;

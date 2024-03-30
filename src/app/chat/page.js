@@ -11,7 +11,7 @@ import thumb_up from "../../assets/images/thumb_up.png";
 import logout from "../../assets/images/logout.png";
 import PreResponse from "../components/PreResponse";
 import { useRouter } from "next/navigation";
-import GeneratingLoader from "../components/GeneratingLoader";
+import GeneratingLoader1 from "../components/GeneratingLoader1";
 
 const Chat = () => {
   const router = useRouter();
@@ -124,8 +124,8 @@ const Chat = () => {
 
   return (
     <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#020817]">
-      <div className="w-[20%] h-[90%] border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
-        <div className="w-[100%] h-[8%] flex justify-evenly items-center">
+      <div className="w-[20%] h-screen border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
+        <div className="w-[100%] h-[8%] flex justify-evenly items-center mt-4">
           <div
             className="w-[48%] h-[90%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 cursor-pointer"
             onClick={() => handleFeedback({ type: "report" })}
@@ -228,7 +228,7 @@ const Chat = () => {
             className="text-3xl cursor-pointer text-[#F8F8F8]"
             onClick={handleSubmit}
           >
-            {loading ? <GeneratingLoader /> : <IoIosSend />}
+            {loading ? <GeneratingLoader1 /> : <IoIosSend />}
           </span>
         </div>
       </div>
