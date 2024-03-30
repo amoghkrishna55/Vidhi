@@ -198,6 +198,7 @@ const Chat = () => {
           {response && response.length > 0 ? (
             response.map((item, index) => (
               <Response
+                key={index}
                 role={item.role}
                 message={item.message}
                 loading={loading}

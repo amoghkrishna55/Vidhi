@@ -65,7 +65,11 @@ const PreResponse = ({ handleClickLoad }: { handleClickLoad: any }) => {
       <div className="flex flex-wrap mt-[5rem] justify-evenly gap-6">
         {randomArray && randomArray.length > 0
           ? randomArray.map((item, index) => (
-              <PreResponseDiv query={item} handleClickLoad={handleClickLoad} />
+              <PreResponseDiv
+                key={index}
+                query={item}
+                handleClickLoad={handleClickLoad}
+              />
             ))
           : null}
       </div>
