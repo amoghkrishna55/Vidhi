@@ -72,7 +72,7 @@ const PreResponse = ({ handleClickLoad }: { handleClickLoad: any }) => {
             1000, // wait 1s before replacing "Bengali" with "Punjabi"
             "ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਉਪਭੋਗਤਾ", // Punjabi
           ]}
-          repeat={1}
+          repeat={Infinity}
           speed={40}
         />
         <p className="font-bold text-6xl text-slate-600 mt-3">
