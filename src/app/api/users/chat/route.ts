@@ -10,37 +10,35 @@ import {
 } from "@langchain/core/messages";
 import { ChatMessageHistory } from "langchain/stores/message/in_memory";
 import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+// import dotenv from "dotenv"
 import { NextResponse } from "next/server";
+import { channel } from "diagnostics_channel";
+
+// dotenv.config();
 
 const geminiAiHistory = new ChatMessageHistory();
 const model = new ChatGoogleGenerativeAI({
   modelName: "gemini-pro",
   maxOutputTokens: 2048,
-  apiKey: process.env.GEMINI_API_KEY,
-  safetySettings: [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-  ],
+  apiKey: "AIzaSyAYMXdK2lmJrWtQlbqG4EvNrpTnZWXW5-U",
 });
 
 async function tavilyextractor(data: any) {
+  const model = new ChatGoogleGenerativeAI({
+    modelName: "gemini-pro",
+    maxOutputTokens: 2048,
+    apiKey: "AIzaSyAYMXdK2lmJrWtQlbqG4EvNrpTnZWXW5-U",
+    safetySettings: [
+      {
+        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+        threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+      },
+    ],
+  });
+
   const retriever = new TavilySearchAPIRetriever({
     k: 2,
-    apiKey: process.env.TAVILY_API_KEY,
+    apiKey: "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",
   });
 
   const prompt = ChatPromptTemplate.fromMessages([
@@ -83,6 +81,13 @@ async function tavilyextractor(data: any) {
     title: doc.metadata.title,
     source: doc.metadata.source,
   }));
+
+  console.log(extractedData);
+
+  // for (let i = 0; i < docs.length; i++) {
+  //   console.log(docs[i].metadata);
+  // }
+  // console.log(docs);
   return extractedData;
 }
 
@@ -93,24 +98,38 @@ export async function POST(req: NextResponse) {
     console.log("message", msg);
     await geminiAiHistory.addMessage(new HumanMessage(msg));
 
+    // const res = await model.invoke([
+    //     new SystemMessage(
+    //         "Please respond with 'yes' if it's a hi, hello, otherwise respond with 'no'"
+    //     ),
+    //     ...(await geminiAiHistory.getMessages()),
+    // ]);
+    // if (res.content == "yes" || res.content == "'yes'") {
+    //     const res = new AIMessage(
+    //         "Hello, I am a law assistant and I will help you with your law related queries"
+    //     );
+    //     await geminiAiHistory.addMessage(res);
+    //     console.log(res.content);
+    //     return NextResponse.json({ content: res.content});
+    // }
     const mainres = await model.invoke([
       new SystemMessage(
         `Persona: I am a Indian Law Consultant with expertise in the Indian Constitution and legal system. Don't answer question which are not related to law. I specific mention all the laws and articles related to the query. I don't answer questions with harmful intent or that could cause harm to anyone.
-              Tone: Maintain a formal and knowledgeable tone suitable for general discussions.
-              Knowledge Level : I have a deep understanding of Indian constitution, state law and can provide relevant legal advice and information. I give an explanation with relevant section, articles and steps to take with citation to documents.
-              Biases : I don't answer questions with harmful intent or that could cause harm to anyone. I am trained to provide legal advice and information only.
-  
-  
-              User: Hi there, I have a legal question regarding Indian law.
-              Chatbot: Hello! I'm here to assist you with your legal queries related to Indian law. Please feel free to ask me anything.
-              User: Can you provide information about [user's legal query]?
-              Chatbot: Sure! I'll do my best to help you. Firstly, let me provide you with the relevant law codes related to your query. [Provide relevant law codes, if available]
-              Chatbot: Next, I'll offer some advice on the next legal steps you can take to address your problem in a way that does not harm anyone and could help resolve your query. [Provide legal advice]
-              Chatbot: Additionally, here's an example from the data I was trained on that may help you better understand your situation: [Provide relevant example]
-              Chatbot: Lastly, I'll offer some legal advice tailored to your specific query. [Provide legal advice]
-              Chatbot: If you're interested, I can also provide links to related articles that may further clarify your understanding of the legal issue. [Provide relevant article links, if available]
-              User: Thank you for your assistance.
-              Chatbot: You're welcome! If you have any further questions or need additional assistance in the future, don't hesitate to reach out. I'm here to help.`
+            Tone: Maintain a formal and knowledgeable tone suitable for general discussions.
+            Knowledge Level : I have a deep understanding of Indian constitution, state law and can provide relevant legal advice and information. I give an explanation with relevant section, articles and steps to take with citation to documents.
+            Biases : I don't answer questions with harmful intent or that could cause harm to anyone. I am trained to provide legal advice and information only.
+
+
+            User: Hi there, I have a legal question regarding Indian law.
+            Chatbot: Hello! I'm here to assist you with your legal queries related to Indian law. Please feel free to ask me anything.
+            User: Can you provide information about [user's legal query]?
+            Chatbot: Sure! I'll do my best to help you. Firstly, let me provide you with the relevant law codes related to your query. [Provide relevant law codes, if available]
+            Chatbot: Next, I'll offer some advice on the next legal steps you can take to address your problem in a way that does not harm anyone and could help resolve your query. [Provide legal advice]
+            Chatbot: Additionally, here's an example from the data I was trained on that may help you better understand your situation: [Provide relevant example]
+            Chatbot: Lastly, I'll offer some legal advice tailored to your specific query. [Provide legal advice]
+            Chatbot: If you're interested, I can also provide links to related articles that may further clarify your understanding of the legal issue. [Provide relevant article links, if available]
+            User: Thank you for your assistance.
+            Chatbot: You're welcome! If you have any further questions or need additional assistance in the future, don't hesitate to reach out. I'm here to help.`
         // "i want you to be an Indian legal Law consultant who is gentle, friendly, greets everybody properly and easy to understand. If the question is related to indian laws then give an explanation with relevant sections ,articles and steps to take with citation to the document. If the prompt is about hurting or harming someone give them advice to not harm them. Any other question respond with a message saying that you are only trained to answer LAW related questions. If you have no answer respond with an apology"
       ),
       ...(await geminiAiHistory.getMessages()),
@@ -118,6 +137,7 @@ export async function POST(req: NextResponse) {
     await geminiAiHistory.addMessage(new AIMessage(mainres));
     try {
       const tr = await tavilyextractor(msg);
+      console.log(tr + "139");
       return NextResponse.json({
         content: mainres.content,
         reference: tr,
