@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { IoIosSend } from "react-icons/io";
 import Response from "../components/Response";
 import Image from "next/image";
-import logo from "../../assets/images/apex_logo_rm_bg.png";
+import logo from "../../assets/images/vidhi.png";
 import report from "../../assets/images/report.png";
 import thumb_up from "../../assets/images/thumb_up.png";
 import logout from "../../assets/images/logout.png";
@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import GeneratingLoader from "../components/GeneratingLoader";
 
 const Chat = () => {
-
   const router = useRouter();
   const [input, setInput] = useState("");
   const [reference, setReference] = useState([]);
@@ -36,14 +35,14 @@ const Chat = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   useEffect(() => {
     try {
       validateUser();
     } catch (error) {
       console.log(error);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (chatDisplayRef.current) {
@@ -99,17 +98,17 @@ const Chat = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSubmit(e);
     }
   };
 
-  const handleClickLoadQues = (query)=>{
+  const handleClickLoadQues = (query) => {
     setInput(query);
-    let enterEvent = new KeyboardEvent('keydown', {key: 'Enter'});
+    let enterEvent = new KeyboardEvent("keydown", { key: "Enter" });
     handleKeyDown(enterEvent);
-  }
+  };
 
   const handleLogout = async () => {
     try {
@@ -121,14 +120,12 @@ const Chat = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#1E1E1E]">
       <div className="w-[20%] h-[90%] border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
-
         <div className="w-[100%] h-[8%] flex justify-evenly items-center">
-
           <div
             className="w-[48%] h-[90%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 cursor-pointer"
             onClick={() => handleFeedback({ type: "report" })}
@@ -139,7 +136,9 @@ const Chat = () => {
               <>
                 <Image src={report} alt="Report image" width={20} height={20} />
 
-                <span className="text-[#F8F8F8] text-[12px]">Report content</span>
+                <span className="text-[#F8F8F8] text-[12px]">
+                  Report content
+                </span>
               </>
             )}
           </div>
@@ -168,16 +167,9 @@ const Chat = () => {
           className="w-[90%] h-[7%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 my-1 cursor-pointer"
           onClick={() => handleLogout()}
         >
-
-          <Image
-            src={logout}
-            alt="Log out image"
-            width={20}
-            height={20}
-          />
+          <Image src={logout} alt="Log out image" width={20} height={20} />
 
           <span className="font-bold text-[#F8F8F8]">Log out</span>
-
         </div>
 
         <div className="w-[100%] h-[2px] bg-[#2d2d2d] mt-2"></div>
@@ -198,7 +190,6 @@ const Chat = () => {
               your situation.
             </li>
             <br />
-
           </ul>
         </div>
       </div>
@@ -233,12 +224,11 @@ const Chat = () => {
             onKeyDown={handleKeyDown}
             onChange={(e) => setInput(e.target.value)}
           />
-          <span className="text-3xl cursor-pointer text-[#F8F8F8]" onClick={handleSubmit}>
-            {
-              loading ?
-                <GeneratingLoader />
-                : <IoIosSend />
-            }
+          <span
+            className="text-3xl cursor-pointer text-[#F8F8F8]"
+            onClick={handleSubmit}
+          >
+            {loading ? <GeneratingLoader /> : <IoIosSend />}
           </span>
         </div>
       </div>
