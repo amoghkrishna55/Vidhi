@@ -138,6 +138,10 @@ const Chat = () => {
         alert("Please select a PNG or JPEG image file.");
         return;
       }
+      if (file.size > 1024 * 1024) {
+        alert("File size should be less than 1MB");
+        return;
+      }
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
