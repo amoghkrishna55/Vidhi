@@ -167,124 +167,139 @@ const Chat = () => {
   };
 
   return (
-    <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#020817]">
-      <div className="w-[20%] h-screen border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
-        <div className="w-[100%] h-[8%] flex justify-evenly items-center mt-4">
-          <div
-            className="w-[48%] h-[90%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 cursor-pointer"
-            onClick={() => handleFeedback({ type: "report" })}
-          >
-            {feedback.report ? (
-              "Reporting..."
-            ) : (
-              <>
-                <Image src={report} alt="Report image" width={20} height={20} />
+    <>
+      <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#020817]">
+        <div className="w-[20%] h-screen border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
+          <div className="w-[100%] h-[8%] flex justify-evenly items-center mt-4">
+            <div
+              className="w-[48%] h-[90%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 cursor-pointer"
+              onClick={() => handleFeedback({ type: "report" })}
+            >
+              {feedback.report ? (
+                "Reporting..."
+              ) : (
+                <>
+                  <Image
+                    src={report}
+                    alt="Report image"
+                    width={20}
+                    height={20}
+                  />
 
-                <span className="text-[#F8F8F8] text-[12px]">
-                  Report content
-                </span>
-              </>
-            )}
+                  <span className="text-[#F8F8F8] text-[12px]">
+                    Report content
+                  </span>
+                </>
+              )}
+            </div>
+            <div
+              className="w-[48%] h-[90%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 my-1 cursor-pointer"
+              onClick={() => handleFeedback({ type: "like" })}
+            >
+              {feedback.like ? (
+                "Liking..."
+              ) : (
+                <>
+                  <Image
+                    src={thumb_up}
+                    alt="Thumb up image"
+                    width={20}
+                    height={20}
+                  />
+
+                  <span className="text-[#F8F8F8] text-[12px]">Thumbs Up</span>
+                </>
+              )}
+            </div>
           </div>
+
           <div
-            className="w-[48%] h-[90%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 my-1 cursor-pointer"
-            onClick={() => handleFeedback({ type: "like" })}
+            className="w-[90%] h-[7%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 my-1 cursor-pointer"
+            onClick={() => {
+              handleReview();
+            }}
           >
-            {feedback.like ? (
-              "Liking..."
+            {!isLoading ? (
+              <Image src={logout} alt="Log out image" width={20} height={20} />
             ) : (
-              <>
-                <Image
-                  src={thumb_up}
-                  alt="Thumb up image"
-                  width={20}
-                  height={20}
+              <GeneratingLoader1 />
+            )}
+
+            <span className="font-bold text-[#F8F8F8]">Review File</span>
+          </div>
+
+          <div className="w-[100%] h-[2px] bg-[#2d2d2d] mt-2"></div>
+          <div className=" w-[100%] h-[100%] overflow-auto rounded-md px-2 py-4">
+            <h2 className="font-bold text-lg text-[#F8F8F8]">Disclaimer</h2>
+            <br />
+            <ul className="text-sm text-[#ababab] ">
+              <li>
+                This information is for general knowledge purposes only and does
+                not constitute legal advice. It is recommended to consult a
+                qualified lawyer for specific legal guidance and representation.
+              </li>
+              <br />
+              <li>
+                Laws and regulations vary by jurisdiction, and legal outcomes
+                can differ based on individual circumstances. Therefore, it is
+                important to seek the advice of a qualified lawyer tailored to
+                your situation.
+              </li>
+              <br />
+            </ul>
+          </div>
+        </div>
+        <div className="w-[80%] h-[90%] fixed top-0 right-0 overflow-auto">
+          <div className=" flex flex-col items-center" ref={chatDisplayRef}>
+            {response && response.length > 0 ? (
+              response.map((item, index) => (
+                <Response
+                  key={index}
+                  role={item.role}
+                  message={item.message}
+                  loading={loading}
+                  reference={reference ? reference : null}
+                  isCurrentLoading={index === response.length - 1}
                 />
-
-                <span className="text-[#F8F8F8] text-[12px]">Thumbs Up</span>
-              </>
+              ))
+            ) : (
+              <PreResponse handleClickLoad={handleClickLoadQues} />
             )}
           </div>
         </div>
 
-        <div
-          className="w-[90%] h-[7%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 my-1 cursor-pointer"
-          onClick={() => {
-            handleReview();
-          }}
-        >
-          {!isLoading ? (
-            <Image src={logout} alt="Log out image" width={20} height={20} />
-          ) : (
-            <GeneratingLoader1 />
-          )}
-
-          <span className="font-bold text-[#F8F8F8]">Review File</span>
+        <div className="w-[18%] h-[10%] fixed left-0 bottom-0">
+          <Image className="w-[100%] h-[100%]" src={logo} alt="logo" />
         </div>
-
-        <div className="w-[100%] h-[2px] bg-[#2d2d2d] mt-2"></div>
-        <div className=" w-[100%] h-[100%] overflow-auto rounded-md px-2 py-4">
-          <h2 className="font-bold text-lg text-[#F8F8F8]">Disclaimer</h2>
-          <br />
-          <ul className="text-sm text-[#ababab] ">
-            <li>
-              This information is for general knowledge purposes only and does
-              not constitute legal advice. It is recommended to consult a
-              qualified lawyer for specific legal guidance and representation.
-            </li>
-            <br />
-            <li>
-              Laws and regulations vary by jurisdiction, and legal outcomes can
-              differ based on individual circumstances. Therefore, it is
-              important to seek the advice of a qualified lawyer tailored to
-              your situation.
-            </li>
-            <br />
-          </ul>
+        <div className="w-[80%] fixed bottom-0 right-0 h-[10%] flex justify-center items-center">
+          <div className="w-[60%] h-[60%] rounded-3xl flex justify-center items-center px-2 border border-slate-500 bg-[#323232] mb-10">
+            <input
+              className="rounded-3xl h-[100%] w-[100%] px-2 border-none outline-none bg-[#323232] text-[#F8F8F8]"
+              type="text"
+              placeholder="Type your legal question..."
+              value={input}
+              onKeyDown={handleKeyDown}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <span
+              className="text-3xl cursor-pointer text-[#F8F8F8]"
+              onClick={handleSubmit}
+            >
+              {loading ? <GeneratingLoader1 /> : <IoIosSend />}
+            </span>
+          </div>
         </div>
       </div>
-      <div className="w-[80%] h-[90%] fixed top-0 right-0 overflow-auto">
-        <div className=" flex flex-col items-center" ref={chatDisplayRef}>
-          {response && response.length > 0 ? (
-            response.map((item, index) => (
-              <Response
-                key={index}
-                role={item.role}
-                message={item.message}
-                loading={loading}
-                reference={reference ? reference : null}
-                isCurrentLoading={index === response.length - 1}
-              />
-            ))
-          ) : (
-            <PreResponse handleClickLoad={handleClickLoadQues} />
-          )}
-        </div>
+      <div
+        style={{
+          position: "fixed",
+          right: "180px",
+          bottom: "-360px",
+        }}
+      >
+        <Mic />
       </div>
-
-      <div className="w-[18%] h-[10%] fixed left-0 bottom-0">
-        <Image className="w-[100%] h-[100%]" src={logo} alt="logo" />
-      </div>
-      <div className="w-[80%] fixed bottom-0 right-0 h-[10%] flex justify-center items-center">
-        <div className="w-[60%] h-[60%] rounded-3xl flex justify-center items-center px-2 border border-slate-500 bg-[#323232] mb-10">
-          <input
-            className="rounded-3xl h-[100%] w-[100%] px-2 border-none outline-none bg-[#323232] text-[#F8F8F8]"
-            type="text"
-            placeholder="Type your legal question..."
-            value={input}
-            onKeyDown={handleKeyDown}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <span
-            className="text-3xl cursor-pointer text-[#F8F8F8]"
-            onClick={handleSubmit}
-          >
-            {loading ? <GeneratingLoader1 /> : <IoIosSend />}
-          </span>
-          <Mic />
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

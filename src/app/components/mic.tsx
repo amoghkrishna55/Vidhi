@@ -84,14 +84,14 @@ export default function Mic() {
           </div>
         )}
 
-        <div className="flex items-center w-full">
+        <div className="flex items-center w-full ">
           {isRecording ? (
             <button
               onClick={handleToggleRecording}
               className="mt-10 m-auto flex items-center justify-center bg-red-400 hover:bg-red-500 rounded-full w-20 h-20 focus:outline-none"
             >
               <svg
-                className="h-12 w-12 "
+                className="h-7 w-7 "
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -101,12 +101,12 @@ export default function Mic() {
           ) : (
             <button
               onClick={handleToggleRecording}
-              className="mt-10 m-auto flex items-center justify-center bg-blue-400 hover:bg-blue-500 rounded-full w-20 h-20 focus:outline-none"
+              className="mt-10 m-auto flex items-center justify-center bg-blue-400 hover:bg-blue-500 rounded-full w-16 h-16 focus:outline-none"
             >
               <svg
                 viewBox="0 0 256 256"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-12 h-12 text-white"
+                className="w-7 h-7 text-white"
               >
                 <path
                   fill="currentColor"
