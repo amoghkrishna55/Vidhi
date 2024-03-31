@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="hidden lg:block">
         <ul className="flex gap-10">
           <li className="hover:text-brand/yellow">
-            <Link href={"/join-environments"}>Popular_Lawyers</Link>
+            <Link href={"/lawyers"}>Popular_Lawyers</Link>
           </li>
         </ul>
       </div>
