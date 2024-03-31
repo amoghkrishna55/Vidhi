@@ -293,8 +293,8 @@ const Chat = () => {
       <div
         style={{
           position: "fixed",
-          right: "180px",
-          bottom: "-360px",
+          right: "10%",
+          bottom: "-40%",
         }}
       >
         <Mic />
