@@ -28,6 +28,10 @@ const Chat = () => {
     like: false,
   });
 
+  const handleTranscript = (newTranscript) => {
+    setInput(newTranscript);
+  };
+
   const validateUser = async () => {
     try {
       const response = await axios.get("/api/users/me");
@@ -297,7 +301,7 @@ const Chat = () => {
           bottom: "-40%",
         }}
       >
-        <Mic />
+        <Mic onTranscriptChange={handleTranscript} />
       </div>
     </>
   );
