@@ -10,7 +10,7 @@ import {
 } from "@langchain/core/messages";
 import { ChatMessageHistory } from "langchain/stores/message/in_memory";
 import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const geminiAiHistory = new ChatMessageHistory();
 const model = new ChatGoogleGenerativeAI({
@@ -88,7 +88,7 @@ async function tavilyextractor(data: any) {
   return extractedData;
 }
 
-export async function POST(req: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
     const { msg } = reqBody;

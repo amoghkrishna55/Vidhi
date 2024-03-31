@@ -52,9 +52,27 @@ const PreResponse = ({ handleClickLoad }: { handleClickLoad: any }) => {
         <br />
         <TypeAnimation
           className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-gradient-start to-gradient-end"
-          cursor={false}
-          sequence={["Hello, User"]}
-          repeat={1}
+          cursor={true}
+          sequence={[
+            "Hello, User",
+            1000,
+            "नमस्ते, उपयोगकर्ता", // Hindi
+            1000, // wait 1s before replacing "Hindi" with "Tamil"
+            "வணக்கம், பயனர்", // Tamil
+            1000, // wait 1s before replacing "Tamil" with "Telugu"
+            "హలో, వాడుకరి", // Telugu
+            1000, // wait 1s before replacing "Telugu" with "Kannada"
+            "ಹಲೋ, ಬಳಕೆದಾರ", // Kannada
+            1000, // wait 1s before replacing "Kannada" with "Malayalam"
+            "ഹലോ, ഉപയോക്താവ്", // Malayalam
+            1000, // wait 1s before replacing "Malayalam" with "Gujarati"
+            "હેલો, વપરાશકર્તા", // Gujarati
+            1000, // wait 1s before replacing "Gujarati" with "Bengali"
+            "হ্যালো, ব্যবহারকারী", // Bengali
+            1000, // wait 1s before replacing "Bengali" with "Punjabi"
+            "ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਉਪਭੋਗਤਾ", // Punjabi
+          ]}
+          repeat={Infinity}
           speed={40}
         />
         <p className="font-bold text-6xl text-slate-600 mt-3">
@@ -65,7 +83,11 @@ const PreResponse = ({ handleClickLoad }: { handleClickLoad: any }) => {
       <div className="flex flex-wrap mt-[5rem] justify-evenly gap-6">
         {randomArray && randomArray.length > 0
           ? randomArray.map((item, index) => (
-              <PreResponseDiv query={item} handleClickLoad={handleClickLoad} />
+              <PreResponseDiv
+                key={index}
+                query={item}
+                handleClickLoad={handleClickLoad}
+              />
             ))
           : null}
       </div>

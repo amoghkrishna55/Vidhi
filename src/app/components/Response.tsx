@@ -66,7 +66,7 @@ const Response = ({
             {reference
               ? reference.map((item: any, index: number) => {
                   return (
-                    <div className="w-[100%] flex px-8">
+                    <div key={index} className="w-[100%] flex px-8">
                       <Link
                         target="_blank"
                         href={item.source}
