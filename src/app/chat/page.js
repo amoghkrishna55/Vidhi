@@ -13,6 +13,7 @@ import PreResponse from "../components/PreResponse";
 import { useRouter } from "next/navigation";
 import GeneratingLoader1 from "../components/GeneratingLoader1";
 import { set } from "react-hook-form";
+import Mic from "../components/mic";
 
 const Chat = () => {
   const router = useRouter();
@@ -280,6 +281,7 @@ const Chat = () => {
           >
             {loading ? <GeneratingLoader1 /> : <IoIosSend />}
           </span>
+          <Mic />
         </div>
       </div>
     </div>
