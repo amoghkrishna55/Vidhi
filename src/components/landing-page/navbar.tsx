@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="hidden lg:block">
         <ul className="flex gap-10">
           <li className="hover:text-brand/yellow">
-            <Link href={"/join-environments"}>Popular_Lawyers</Link>
+            <Link href={"/lawyers"}>Popular_Lawyers</Link>
           </li>
         </ul>
       </div>
@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="flex flex-1 items-center justify-end   ">
         <ModeToggle />
         <Button className="bg-yellow-400 mx-2 text-black">
-          <Link href={"/dashboard"}>Get Started</Link>
+          <Link href={"/chat"}>Get Started</Link>
         </Button>
         
       </div>

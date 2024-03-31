@@ -70,7 +70,7 @@ const Hero = () => {
 
       <div className="flex w-full items-center justify-center">
         <Button className="bg-yellow-400 text-black">
-          <Link href={"/join-environments"}>Get Started</Link>
+          <Link href={"/chat"}>Get Started</Link>
         </Button>
       </div>
     </div>
