@@ -8,7 +8,11 @@ declare global {
   }
 }
 
-export default function Mic() {
+export default function Mic({
+  onTranscriptChange,
+}: {
+  onTranscriptChange: (transcript: string) => void;
+}) {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingComplete, setRecordingComplete] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -26,6 +30,8 @@ export default function Mic() {
 
       console.log(event.results);
       setTranscript(transcript);
+      onTranscriptChange(transcript);
+      console.log(transcript);
     };
 
     recognitionRef.current.start();
@@ -59,9 +65,9 @@ export default function Mic() {
     <div className="flex items-center justify-center h-screen w-full">
       <div className="w-full">
         {(isRecording || transcript) && (
-          <div className="w-1/4 m-auto rounded-md border p-4 bg-white">
+          <div className="w-1/4 m-auto rounded-md border">
             <div className="flex-1 flex w-full justify-between">
-              <div className="space-y-1">
+              {/* <div className="space-y-1">
                 <p className="text-sm font-medium leading-none">
                   {recordingComplete ? "Recorded" : "Recording"}
                 </p>
@@ -70,17 +76,14 @@ export default function Mic() {
                     ? "Thanks for talking."
                     : "Start speaking..."}
                 </p>
-              </div>
-              {isRecording && (
-                <div className="rounded-full w-4 h-4 bg-red-400 animate-pulse" />
-              )}
+              </div> */}
             </div>
 
-            {transcript && (
+            {/* {transcript && (
               <div className="border rounded-md p-2 h-fullm mt-4">
                 <p className="mb-0">{transcript}</p>
               </div>
-            )}
+            )} */}
           </div>
         )}
 
@@ -88,7 +91,7 @@ export default function Mic() {
           {isRecording ? (
             <button
               onClick={handleToggleRecording}
-              className="mt-10 m-auto flex items-center justify-center bg-red-400 hover:bg-red-500 rounded-full w-20 h-20 focus:outline-none"
+              className="mt-10 m-auto flex items-center justify-center bg-red-400 hover:bg-red-500 rounded-full w-16 h-16 focus:outline-none"
             >
               <svg
                 className="h-7 w-7 "
