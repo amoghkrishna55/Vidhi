@@ -26,9 +26,8 @@ const Navbar = () => {
       <div className="flex flex-1 items-center justify-end   ">
         <ModeToggle />
         <Button className="bg-yellow-400 mx-2 text-black">
-          <Link href={"/dashboard"}>Get Started</Link>
+          <Link href={"/chat"}>Get Started</Link>
         </Button>
-        
       </div>
     </header>
   );

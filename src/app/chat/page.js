@@ -12,10 +12,12 @@ import logout from "../../assets/images/logout.png";
 import PreResponse from "../components/PreResponse";
 import { useRouter } from "next/navigation";
 import GeneratingLoader1 from "../components/GeneratingLoader1";
+import { set } from "react-hook-form";
 
 const Chat = () => {
   const router = useRouter();
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [reference, setReference] = useState([]);
   const chatDisplayRef = useRef(null);
   const [response, setResponse] = useState([]);
@@ -122,6 +124,43 @@ const Chat = () => {
     }
   };
 
+  const handleReview = async () => {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.hidden = true;
+    document.body.appendChild(fileInput);
+    fileInput.click();
+
+    fileInput.addEventListener("change", async () => {
+      const file = fileInput.files[0];
+
+      if (file.type !== "image/png" && file.type !== "image/jpeg") {
+        alert("Please select a PNG or JPEG image file.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = async () => {
+        const base64String = reader.result;
+
+        try {
+          setIsLoading(true);
+          const response = await axios.post("/api/users/file", {
+            file: {
+              data: base64String,
+              mimeType: file.type,
+            },
+          });
+          setIsLoading(false);
+          alert(response.data.text);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    });
+  };
+
   return (
     <div className="relative w-[100vw] h-[100vh] overflow-x-hidden bg-[#020817]">
       <div className="w-[20%] h-screen border-r-2 border-[#4a4a4a] px-2 py-2 flex items-center flex-col">
@@ -165,11 +204,17 @@ const Chat = () => {
 
         <div
           className="w-[90%] h-[7%] border border-slate-600 rounded-3xl flex justify-center items-center gap-2 my-1 cursor-pointer"
-          onClick={() => handleLogout()}
+          onClick={() => {
+            handleReview();
+          }}
         >
-          <Image src={logout} alt="Log out image" width={20} height={20} />
+          {!isLoading ? (
+            <Image src={logout} alt="Log out image" width={20} height={20} />
+          ) : (
+            <GeneratingLoader1 />
+          )}
 
-          <span className="font-bold text-[#F8F8F8]">Log out</span>
+          <span className="font-bold text-[#F8F8F8]">Review File</span>
         </div>
 
         <div className="w-[100%] h-[2px] bg-[#2d2d2d] mt-2"></div>

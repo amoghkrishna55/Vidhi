@@ -26,7 +26,7 @@ const Hero = () => {
           </span>
           {/* and{" "} */}
           <span className="text-brand/blue custom-dotted-border px-6 py-2 inline-block mt-4 rotate-3 w-[5rem]">
-            Companion 
+            Companion
           </span>
         </h1>
       </div>
@@ -70,7 +70,7 @@ const Hero = () => {
 
       <div className="flex w-full items-center justify-center">
         <Button className="bg-yellow-400 text-black">
-          <Link href={"/join-environments"}>Get Started</Link>
+          <Link href={"/chat"}>Get Started</Link>
         </Button>
       </div>
     </div>
